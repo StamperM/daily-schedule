@@ -1,13 +1,79 @@
-const dayjs = require('dayjs')
-//import dayjs from 'dayjs' // ES 2015
-dayjs().format()
-var today = dayjs([])
+var today = dayjs();
+var toDoDescription = $(".description");
+var button = $(".saveBtn");
+var thingsToDo = [];
+// button.submit(function(event){
+//   event.preventDefault();
+// });
 
-$( document ).ready(function() {
-  console.log( "ready!" );
+// button.on("submit", function(){
+//   console.log('does on submit work?')
+//   thingsToDo.push()({
+//       description: toDoDescription.val($(".description").text),
+//       time: $(".timeBlock").text(),
+//   })
+//   console.log("test")
+//   localStorage.setItem('doThis',JSON.stringify(thingsToDo));
+//   console.log(thingsToDo);
+// })
+
+var timeBlock = dayjs().set("hour");
+$(document).ready(function () {
+  console.log("ready!");
+  console.log(timeBlock);
 });
-$('#today').text(today.format('MMM D, YYYY'));
+var todaysDate = $("#currentDay").text(today.format("MMM D, YYYY"));
+var workHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+function updateTimeSlots() {
+  for (i = 0; i < workHours.length; i++) {
+    if (timeBlock < workHours) {
+      $(".timeBlock").addClass("past");
+    } else if (timeBlock === workHours) {
+      $(".timeBlock").addClass(".present");
+    } else {
+      $(".timeBlock").addClass(".Future");
+    }
+  }
+}
+// when I click save I want to save user input so it can be displayed on the p
+function userInput() {
+  button.submit("click", function (event) {
+    localStorage.setIem(
+      "todo",
+      JSON.stringify({
+        description: toDoDescription.text(),
+        time: $(".timeBlock").text(),
+      })
+    );
+  });
+}
+
+function getUserInput() {
+  var updatedToDo = localStorage.getItem(".description");
+  $(".description").text(todo);
+}
+function updateTimeSlots() {
+  var todo = localStorage.getItem(getUserInput());
+  var thingsToDo = [];
+
+  if (todo) {
+    thingsToDo = JSON.parse(todo);
+  }
+  thingsToDo.push()({
+    description: toDoDescription.val(),
+    time: $(".timeBlock").val(),
+  });
+  localStorage.setItem("allTheThings", JSON.stringify(thingsToDo));
+
+}
+
 $(function () {
+  $(".time-block").click(function () {
+    console.log("save");
+
+    localStorage.setItem("thingsToDo", thingsToDo);
+    updateTimeSlots();
+  });
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -27,3 +93,9 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+function circles() {
+  //  if $("#custom-verify").isBefore(dayjs(today)){
+  //  $("#custom-verify") .addClass('.future')
+  //  }
+}
