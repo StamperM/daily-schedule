@@ -1,10 +1,20 @@
 var today = dayjs();
 var toDoDescription = $(".description");
 var button = $(".saveBtn");
-var thingsToDo = [];
-// button.submit(function(event){
-//   event.preventDefault();
-// });
+var thingsToDo = {};
+
+button.on('click',function(event){
+  event.preventDefault();
+ var descriptionValue = $(this).siblings(".description").val();
+ console.log(descriptionValue);
+ var hourId = $(this).parent().attr('id');
+ var splitHourId = hourId.split('-')[1];
+ console.log(splitHourId);
+ console.log(hourId);
+ thingsToDo[splitHourId]=descriptionValue
+ console.log(thingsToDo);
+ 
+});
 
 // button.on("submit", function(){
 //   console.log('does on submit work?')
@@ -17,7 +27,7 @@ var thingsToDo = [];
 //   console.log(thingsToDo);
 // })
 
-var timeBlock = dayjs().set("hour");
+var timeBlock = dayjs().set("hour",6);
 $(document).ready(function () {
   console.log("ready!");
   console.log(timeBlock);
@@ -68,7 +78,7 @@ function updateTimeSlots() {
 }
 
 $(function () {
-  $(".time-block").click(function () {
+  $(".saveBtn").click(function () {
     console.log("save");
 
     localStorage.setItem("thingsToDo", thingsToDo);
