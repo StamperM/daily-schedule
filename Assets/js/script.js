@@ -60,7 +60,10 @@ function userInput() {
 
 function getUserInput() {
   var updatedToDo = localStorage.getItem(".description");
-  $(".description").text(todo);
+  var todo = document.querySelector(".description").val;
+ console.log(updatedToDo);
+ console.log(todo);
+
 }
 function updateTimeSlots() {
   var todo = localStorage.getItem(getUserInput());
@@ -70,8 +73,8 @@ function updateTimeSlots() {
     thingsToDo = JSON.parse(todo);
   }
   thingsToDo.push()({
-    description: toDoDescription.val(),
-    time: $(".timeBlock").val(),
+    description: todo,
+    time: ,
   });
   localStorage.setItem("allTheThings", JSON.stringify(thingsToDo));
 
