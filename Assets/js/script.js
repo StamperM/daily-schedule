@@ -2,19 +2,9 @@ var today = dayjs();
 var toDoDescription = $(".description");
 var button = $(".saveBtn");
 var thingsToDo = {};
+var descriptionValue ;
 
-button.on('click',function(event){
-  event.preventDefault();
- var descriptionValue = $(this).siblings(".description").val();
- console.log(descriptionValue);
- var hourId = $(this).parent().attr('id');
- var splitHourId = hourId.split('-')[1];
- console.log(splitHourId);
- console.log(hourId);
- thingsToDo[splitHourId]=descriptionValue
- console.log(thingsToDo);
- 
-});
+
 
 // button.on("submit", function(){
 //   console.log('does on submit work?')
@@ -27,66 +17,75 @@ button.on('click',function(event){
 //   console.log(thingsToDo);
 // })
 
-var timeBlock = dayjs().set("hour",6);
+var timeBlock = dayjs().set("hour",14);
 $(document).ready(function () {
   console.log("ready!");
   console.log(timeBlock);
+  updateTimeSlots();
 });
+
+
 var todaysDate = $("#currentDay").text(today.format("MMM D, YYYY"));
-var workHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+
 function updateTimeSlots() {
-  for (i = 0; i < workHours.length; i++) {
-    if (timeBlock < workHours) {
-      $(".timeBlock").addClass("past");
-    } else if (timeBlock === workHours) {
-      $(".timeBlock").addClass(".present");
-    } else {
-      $(".timeBlock").addClass(".Future");
-    }
+  // get current hour
+  var currentTime = dayjs().format("H");
+  // select timebox class
+  $(".time-block").each(function(){
+ // get ID and split hour away from ID
+ var timeblockHour = $(this).attr('id').split("-")[1];
+ // get difference betwee current hour and split hour 
+
+ // assign past present and future
+
+  if (timeblockHour < currentTime) {
+    $(this).addClass("past");
+  } else if (timeblockHour=== currentTime) {
+    $(this).addClass("present");
+  } else {
+    $(this).addClass("future");
   }
+})
 }
-// when I click save I want to save user input so it can be displayed on the p
-function userInput() {
-  button.submit("click", function (event) {
-    localStorage.setIem(
-      "todo",
-      JSON.stringify({
-        description: toDoDescription.text(),
-        time: $(".timeBlock").text(),
-      })
-    );
-  });
-}
+ 
 
-function getUserInput() {
-  var updatedToDo = localStorage.getItem(".description");
-  var todo = document.querySelector(".description").val;
- console.log(updatedToDo);
- console.log(todo);
 
-}
-function updateTimeSlots() {
-  var todo = localStorage.getItem(getUserInput());
-  var thingsToDo = [];
 
-  if (todo) {
-    thingsToDo = JSON.parse(todo);
-  }
-  thingsToDo.push()({
-    description: todo,
-    time: ,
-  });
-  localStorage.setItem("allTheThings", JSON.stringify(thingsToDo));
 
-}
+// 
+
+
+
 
 $(function () {
-  $(".saveBtn").click(function () {
+  $(".saveBtn").click(function (event) {
     console.log("save");
+// on save button read value and time
+ event.preventDefault();
+  descriptionValue = $(this).siblings(".description").val();
+ var hourId = $(this).parent().attr('id');
+ var splitHourId = hourId.split('-')[1];
+//  $(".custom-verifyTime").addClass(hourId)
+//  thingsToDo[splitHourId]=descriptionValue
+ 
+ 
 
-    localStorage.setItem("thingsToDo", thingsToDo);
-    updateTimeSlots();
+// read local storage for current stuff. 
+
+var currentUpdatedToDo = JSON.parse(localStorage.getItem("timeblock")|| "{}");
+ 
+
+
+// write new value time on to the current stuff. 
+
+currentUpdatedToDo[splitHourId]=descriptionValue
+// write current stuff back to local storage. 
+localStorage.setItem('timeblock',JSON.stringify( currentUpdatedToDo))
+    
   });
+
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
