@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 16px;
 }
 
@@ -14,6 +14,7 @@ textarea {
 
 .description {
   white-space: pre-wrap;
+  color: #ffffff;
 }
 
 .time-block {
@@ -31,17 +32,17 @@ textarea {
 }
 
 .past {
-  background-color: #d3d3d3;
+  background-color:rgba(139, 58, 139, 0.844); 
   color: white;
 }
 
 .present {
-  background-color: #ff6961;
+  background-color:#8e75e1;;
   color: white;
 }
 
 .future {
-  background-color: #77dd77;
+  background-color: #64b6e9;
   color: white;
 }
 
